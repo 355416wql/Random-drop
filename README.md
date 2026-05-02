@@ -36,7 +36,7 @@
 
 1. 安装 Fabric Loader ≥ 0.19.2
 2. 安装 Fabric API
-3. 下载本模组 jar 放入 `mods` 文件夹
+3. 从 [Releases](https://github.com/355416wql/Random-drop/releases) 页面下载最新 jar，放入 `mods` 文件夹
 4. 启动游戏，享受混乱
 
 ## 适用版本
