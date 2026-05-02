@@ -1,18 +1,18 @@
-# Random Drop - 随机掉落
+# Random Drop
 
-一个让 Minecraft 世界彻底"失控"的 Fabric 模组。挖方块、打怪、合成——全部随机掉落。
+A Fabric mod that turns Minecraft's loot system into complete chaos. Block drops, mob drops, crafting results — all randomized.
 
-## 功能
+## Features
 
-| 功能 | 说明 |
-|------|------|
-| 随机方块掉落 | 挖掘任意方块时，掉落物从全游戏物品中随机抽取 |
-| 随机生物掉落 | 击杀生物时，掉落物完全随机 |
-| 随机合成结果 | 合成配方产出的物品被随机替换 |
+| Feature | Description |
+|---------|-------------|
+| Random Block Drops | Breaking any block drops a random item from the entire game |
+| Random Mob Drops | Killing any mob drops a completely random item |
+| Random Crafting Results | Crafting recipes produce random items instead of the intended result |
 
-## 配置
+## Configuration
 
-所有功能可独立开关，配置文件位于 `config/random-drop.json`：
+All features can be toggled independently in `config/random-drop.json`:
 
 ```json
 {
@@ -25,24 +25,24 @@
 }
 ```
 
-- `randomBlockDropsEnabled` — 随机方块掉落（默认开启）
-- `randomCraftingResultsEnabled` — 随机合成结果（默认开启）
-- `randomMobDropsEnabled` — 随机生物掉落（默认开启）
-- `blockDropBlacklist` — 方块掉落黑名单
-- `craftingResultBlacklist` — 合成结果黑名单
-- `mobDropBlacklist` — 生物掉落黑名单
+- `randomBlockDropsEnabled` — Random block drops (enabled by default)
+- `randomCraftingResultsEnabled` — Random crafting results (enabled by default)
+- `randomMobDropsEnabled` — Random mob drops (enabled by default)
+- `blockDropBlacklist` — Items excluded from block drops
+- `craftingResultBlacklist` — Items excluded from crafting results
+- `mobDropBlacklist` — Items excluded from mob drops
 
-## 安装
+## Installation
 
-1. 安装 Fabric Loader ≥ 0.19.2
-2. 安装 Fabric API
-3. 从 [Releases](https://github.com/355416wql/Random-drop/releases) 页面下载最新 jar，放入 `mods` 文件夹
-4. 启动游戏，享受混乱
+1. Install Fabric Loader ≥ 0.19.2
+2. Install Fabric API
+3. Download the latest jar from [Releases](https://github.com/355416wql/Random-drop/releases) and place it in your `mods` folder
+4. Launch the game and embrace the chaos
 
-## 适用版本
+## Supported Versions
 
 Minecraft 1.21.11
 
-## 协议
+## License
 
 CC0-1.0
