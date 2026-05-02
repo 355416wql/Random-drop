@@ -6,6 +6,10 @@ plugins {
 version = project.mod_version
 group = project.maven_group
 
+base {
+	archivesName = "random-drop-${project.minecraft_version}-fabric"
+}
+
 repositories {
 	maven {
 		name = 'Aliyun Public'
