@@ -2,8 +2,8 @@
 	"schemaVersion": 1,
 	"id": "random-drop",
 	"version": "${version}",
-	"name": "Random-drop",
-	"description": "这是我学习制作mod的小白入门学习作品",
+	"name": "Random Drop",
+	"description": "A Fabric mod that randomizes all drops in Minecraft. Break blocks, kill mobs, or craft items — the results are never what you expect.",
 	"authors": [
 		"木寒子兮"
 	],
