@@ -1,0 +1,37 @@
+{
+	"schemaVersion": 1,
+	"id": "random-drop",
+	"version": "${version}",
+	"name": "Random-drop",
+	"description": "这是我学习制作mod的小白入门学习作品",
+	"authors": [
+		"木寒子兮"
+	],
+	"contact": {
+		"homepage": "https://center.mcmod.cn/771486/",
+		"sources": "https://github.com/355416wql/Random-drop/blob/26.1.2/README.md"
+	},
+	"license": "CC0-1.0",
+	"icon": "assets/random-drop/icon.png",
+	"environment": "*",
+	"entrypoints": {
+		"main": [
+			"com.example.Randomdrop"
+		],
+		"client": [
+			"com.example.client.RandomdropClient"
+		],
+		"fabric-datagen": [
+			"com.example.client.RandomdropDataGenerator"
+		]
+	},
+	"mixins": [
+		"random-drop.mixins.json"
+	],
+	"depends": {
+		"fabricloader": ">=0.19.2",
+		"minecraft": "~1.21.11",
+		"java": ">=21",
+		"fabric-api": "*"
+	}
+}
