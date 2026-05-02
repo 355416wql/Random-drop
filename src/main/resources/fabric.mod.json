@@ -1,38 +1,37 @@
 {
 	"schemaVersion": 1,
-	"id": "modid",
+	"id": "random-drop",
 	"version": "${version}",
-	"name": "Example Mod",
-	"description": "This is an example description! Tell everyone what your mod is about!",
+	"name": "Random-drop",
+	"description": "这是我学习制作mod的小白入门学习作品",
 	"authors": [
-		"Me!"
+		"木寒子兮"
 	],
 	"contact": {
-		"homepage": "https://fabricmc.net/",
-		"sources": "https://github.com/FabricMC/fabric-example-mod"
+		"homepage": "https://center.mcmod.cn/771486/",
+		"sources": "https://github.com/355416wql/Random-drop/blob/26.1.2/README.md"
 	},
 	"license": "CC0-1.0",
-	"icon": "assets/modid/icon.png",
+	"icon": "assets/random-drop/icon.png",
 	"environment": "*",
 	"entrypoints": {
 		"main": [
-			"com.example.ExampleMod"
+			"com.example.Randomdrop"
 		],
 		"client": [
-			"com.example.client.ExampleModClient"
+			"com.example.client.RandomdropClient"
+		],
+		"fabric-datagen": [
+			"com.example.client.RandomdropDataGenerator"
 		]
 	},
 	"mixins": [
-		"modid.mixins.json",
-		{
-			"config": "modid.client.mixins.json",
-			"environment": "client"
-		}
+		"random-drop.mixins.json"
 	],
 	"depends": {
 		"fabricloader": ">=0.19.2",
-		"minecraft": "~26.1.2",
-		"java": ">=25",
+		"minecraft": "~1.21.11",
+		"java": ">=21",
 		"fabric-api": "*"
 	}
 }

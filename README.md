@@ -1,4 +1,4 @@
-# Example Mod
+# Random-drop
 
 ## Setup
 
