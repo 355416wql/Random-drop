@@ -19,10 +19,12 @@ public class RandomdropConfig {
 	private static final Path CONFIG_PATH = FabricLoader.getInstance().getConfigDir().resolve("random-drop.json");
 
 	public boolean randomBlockDropsEnabled = true;
+	public boolean randomNaturalBlockDropsEnabled = true;
 	public boolean randomCraftingResultsEnabled = true;
 	public boolean randomMobDropsEnabled = true;
 
 	public List<String> blockDropBlacklist = new ArrayList<>();
+	public List<String> naturalBlockDropBlacklist = new ArrayList<>();
 	public List<String> craftingResultBlacklist = new ArrayList<>();
 	public List<String> mobDropBlacklist = new ArrayList<>();
 
@@ -30,7 +32,7 @@ public class RandomdropConfig {
 		try {
 			if (Files.notExists(CONFIG_PATH)) {
 				RandomdropConfig config = createDefault();
-				config.save();
+				config.writeToFile();
 				return config;
 			}
 
@@ -40,7 +42,7 @@ public class RandomdropConfig {
 					config = createDefault();
 				}
 				config.sanitize();
-				config.save();
+				config.writeToFile();
 				return config;
 			}
 		} catch (IOException exception) {
@@ -49,8 +51,23 @@ public class RandomdropConfig {
 		}
 	}
 
+	public boolean save() {
+		try {
+			sanitize();
+			writeToFile();
+			return true;
+		} catch (IOException exception) {
+			Randomdrop.LOGGER.error("Failed to save Random Drop config.", exception);
+			return false;
+		}
+	}
+
 	public boolean isBlacklistedForBlockDrop(Item item) {
 		return isBlacklisted(item, blockDropBlacklist);
+	}
+
+	public boolean isBlacklistedForNaturalBlockDrop(Item item) {
+		return isBlacklisted(item, naturalBlockDropBlacklist);
 	}
 
 	public boolean isBlacklistedForCraftingResult(Item item) {
@@ -64,6 +81,7 @@ public class RandomdropConfig {
 	private static RandomdropConfig createDefault() {
 		RandomdropConfig config = new RandomdropConfig();
 		config.blockDropBlacklist.addAll(defaultSpecialItemBlacklist());
+		config.naturalBlockDropBlacklist.addAll(defaultSpecialItemBlacklist());
 		config.craftingResultBlacklist.addAll(defaultSpecialItemBlacklist());
 		config.mobDropBlacklist.addAll(defaultSpecialItemBlacklist());
 		return config;
@@ -89,6 +107,9 @@ public class RandomdropConfig {
 		if (blockDropBlacklist == null) {
 			blockDropBlacklist = new ArrayList<>();
 		}
+		if (naturalBlockDropBlacklist == null) {
+			naturalBlockDropBlacklist = new ArrayList<>();
+		}
 		if (craftingResultBlacklist == null) {
 			craftingResultBlacklist = new ArrayList<>();
 		}
@@ -97,7 +118,7 @@ public class RandomdropConfig {
 		}
 	}
 
-	private void save() throws IOException {
+	private void writeToFile() throws IOException {
 		Files.createDirectories(CONFIG_PATH.getParent());
 		try (Writer writer = Files.newBufferedWriter(CONFIG_PATH)) {
 			GSON.toJson(this, writer);

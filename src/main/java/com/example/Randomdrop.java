@@ -29,6 +29,7 @@ public class Randomdrop implements ModInitializer {
 
 	private static final Random RANDOM = new Random();
 	private static final List<Item> REGISTERED_ITEMS = new ArrayList<>();
+	private static boolean replacingPlayerBlockDrop;
 	private static RandomdropConfig config;
 
 	@Override
@@ -45,16 +46,21 @@ public class Randomdrop implements ModInitializer {
 			return true;
 		}
 
-		ItemStack dropStack = createRandomBlockDropItemStack();
-		if (dropStack.isEmpty()) {
-			return true;
-		}
-
 		ItemStack toolStack = player.getMainHandItem();
+		boolean vanillaWouldDropItems = !Block.getDrops(state, serverLevel, pos, blockEntity, serverPlayer, toolStack).isEmpty();
+		ItemStack dropStack = vanillaWouldDropItems ? createRandomBlockDropItemStack() : ItemStack.EMPTY;
+
 		serverLevel.levelEvent(player, 2001, pos, Block.getId(state));
-		serverLevel.setBlock(pos, Blocks.AIR.defaultBlockState(), 3);
+		replacingPlayerBlockDrop = true;
+		try {
+			serverLevel.setBlock(pos, Blocks.AIR.defaultBlockState(), 3);
+		} finally {
+			replacingPlayerBlockDrop = false;
+		}
 		toolStack.mineBlock(serverLevel, state, pos, serverPlayer);
-		dropItemStack(serverLevel, pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, dropStack);
+		if (!dropStack.isEmpty()) {
+			dropItemStack(serverLevel, pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, dropStack);
+		}
 		return false;
 	}
 
@@ -65,6 +71,19 @@ public class Randomdrop implements ModInitializer {
 	public static ItemStack createRandomCraftingResultItemStack() {
 		RandomdropConfig currentConfig = getConfig();
 		return createRandomItemStack(item -> !currentConfig.isBlacklistedForCraftingResult(item));
+	}
+
+	public static boolean isRandomNaturalBlockDropsEnabled() {
+		return getConfig().randomNaturalBlockDropsEnabled && !replacingPlayerBlockDrop;
+	}
+
+	public static ItemStack createRandomNaturalBlockDropItemStack(int count) {
+		RandomdropConfig currentConfig = getConfig();
+		ItemStack itemStack = createRandomItemStack(item -> !currentConfig.isBlacklistedForNaturalBlockDrop(item));
+		if (!itemStack.isEmpty()) {
+			itemStack.setCount(count);
+		}
+		return itemStack;
 	}
 
 	public static ItemStack createRandomMobDropItemStack() {
@@ -91,11 +110,15 @@ public class Randomdrop implements ModInitializer {
 		return createRandomItemStack(item -> !currentConfig.isBlacklistedForBlockDrop(item));
 	}
 
-	private static RandomdropConfig getConfig() {
+	public static RandomdropConfig getConfig() {
 		if (config == null) {
 			config = RandomdropConfig.load();
 		}
 		return config;
+	}
+
+	public static void setConfig(RandomdropConfig newConfig) {
+		config = newConfig;
 	}
 
 	private static ItemStack createRandomItemStack(Predicate<Item> itemFilter) {

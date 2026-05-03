@@ -3,8 +3,9 @@
 	"package": "com.example.mixin",
 	"compatibilityLevel": "JAVA_21",
 	"mixins": [
-		"ResultSlotMixin",
-		"LivingEntityMixin"
+		"SlotMixin",
+		"LivingEntityMixin",
+		"BlockMixin"
 	],
 	"injectors": {
 		"defaultRequire": 1
